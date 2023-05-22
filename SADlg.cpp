@@ -440,21 +440,11 @@ void CSADlg::OnStart()
    // Repeat the following steps 100 times.
 	for (int step = 0; step < 100; step++) {
 		// 1. Repeat the following actions (NCITIES-1) times.
-
 		for (int ant = 0; ant < NANTS; ant++) {
-
 			for (int q = 1; q < NCITIES; q++) {
 				// For each ant select the next city:
-				//for (int ant = 0; ant < NANTS; ant++) { // bylo tu
-					//// firts move
-					//if (ants[ant][q] == -1) {
-					//	// move each ant to first random city
-					//	ants[ant][q+1] = rand() % NCITIES;
-					//}
-					//// next moves
-					//else {
 				double S = 0;
-				int current_city = ants[ant][q - 1];//bylo q
+				int current_city = ants[ant][q - 1];
 				// - calculate the sum of S of atractivenesses of all POSSIBLE connections
 				for (int j = 0; j < NCITIES; j++) {
 					if (!IsCityInAnt(j, ant)) {
@@ -476,22 +466,10 @@ void CSADlg::OnStart()
 						city_prob = pow(intens[current_city][cand_city], alpha) * pow(visibility[current_city][cand_city], beta) / S;
 					}
 					if (city_prob > prob) {
-						ants[ant][q] = cand_city; // bylo +1
+						ants[ant][q] = cand_city;
 						inserted = true;
 					}
 				}
-				//while (city_prob == 0 || !inserted) {
-				//	int cand_city = rand() % NCITIES;
-				//	if (!IsCityInAnt(cand_city, ant)) {
-				//		city_prob = pow(intens[current_city][cand_city], alpha) * pow(visibility[current_city][cand_city], beta) / S;
-				//	}
-				//	double prob = (double)rand() / RAND_MAX;
-				//	if ((city_prob > prob || (q == 1)) && cand_city != 0) {
-				//		ants[ant][q] = cand_city; // bylo +1
-				//		inserted = true;
-				//	}
-				//}
-				//}
 			}
 		}
 		// 2. For each ant calculate the length of its route dist(k).
